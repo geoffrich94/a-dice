@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice AR</title>
+  <script src="./dist/bundle.js"></script>
+  <!-- Aframe Physics System -->
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Game UI -->
+  <section id="game-ui">
+    <div id="player01" class="player player--0 player--active">
+      <h2 class="player__name" id="name--0">Player 1</h2>
+      <p class="player__score-label">Current Score</p>
+      <p class="player__score" id="score--0">6</p>
+      <div class="rounds-won">
+        <p class="rounds-won__label">Rounds Won</p>
+        <p class="rounds-won__score" id="round--0">0</p>
+      </div>
+    </div>
+    <div id="player02" class="player player--1">
+      <h2 class="player__name" id="name--1">Player 2</h2>
+      <p class="player__score-label">Current Score</p>
+      <p class="player__score" id="score--1">4</p>
+      <div class="rounds-won">
+        <p class="rounds-won__label">Rounds Won</p>
+        <p class="rounds-won__score" id="round--1">0</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- START OUR A-FRAME SCENE -->
+  <a-scene id="scene" webxr="optionalFeatures: dom-overlay; overlayElement: #game-ui" roll-dice
+    physics="debug: true; iterations: 1">
+
+    <!-- Ask user for camera permissions -->
+    <a-entity zappar-permissions-ui id="permissions"></a-entity>
+    <!-- Browser Compatibility -->
+    <a-entity zappar-compatibility-ui id="compatibility"></a-entity>
+
+    <!-- Asset Management System -->
+    <a-assets>
+      <!-- Dice Model -->
+      <a-asset-item id="diceModel" src="./dist/assets/dice.gltf" />
+    </a-assets>
+
+    <!-- CREATE A-FRAME CAMERA AND REPLACE IT WITH ZAPPAR'S CAMERA -->
+    <a-entity id="camera" camera zappar-camera position="0 4 4">
+      <a-entity raycaster="objects: .cantap;" cursor="fuse: false; rayOrigin: mouse;"></a-entity>
+    </a-entity>
+
+    <!-- Ground -->
+    <!-- <a-box id="ground" static-body scale="1000 2 1000" position="0 -1 0" material="color: yellow">
+    </a-box> -->
+    <a-plane id="ground" scale="50 50 1" rotation="-90 0 0" static-body></a-plane>
+
+  </a-scene>
+  <!-- END SCENE -->
+
+</body>
+
+</html>
